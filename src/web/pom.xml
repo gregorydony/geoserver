@@ -43,6 +43,7 @@
     <module>gwc</module>
     <module>security</module>
     <module>rest</module>
+    <module>weblogic-specific</module>
   </modules>
 
 </project>

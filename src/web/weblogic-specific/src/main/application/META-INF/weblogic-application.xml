@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<weblogic-application xmlns="http://xmlns.oracle.com/weblogic/weblogic-application" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.oracle.com/weblogic/weblogic-application http://xmlns.oracle.com/weblogic/weblogic-application/1.2/weblogic-application.xsd">
+<!-- Use the following namespaces (1.0) for WebLogic Server 10.3.1 or above
+<weblogic-application xmlns="http://xmlns.oracle.com/weblogic/weblogic-application"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xsi:schemaLocation="http://xmlns.oracle.com/weblogic/weblogic-application http://xmlns.oracle.com/weblogic/weblogic-application/1.0/weblogic-application.xsd"-->
+
+    <xml>
+        <parser-factory>
+            <!--<saxparser-factory>weblogic.xml.jaxp.WebLogicSAXParserFactory</saxparser-factory>-->
+            <!--<document-builder-factory>weblogic.xml.jaxp.WebLogicDocumentBuilderFactory</document-builder-factory>-->
+            <!--<transformer-factory>weblogic.xml.jaxp.WebLogicTransformerFactory</transformer-factory>-->
+            <saxparser-factory>org.apache.xerces.jaxp.SAXParserFactoryImpl</saxparser-factory>
+            <document-builder-factory>org.apache.xerces.jaxp.DocumentBuilderFactoryImpl</document-builder-factory>
+            <transformer-factory>org.apache.xalan.xsltc.trax.TransformerFactoryImpl</transformer-factory>
+        </parser-factory>
+    </xml>
+
+    <application-param>
+        <param-name>webapp.encoding.default</param-name>
+        <param-value>UTF-8</param-value>
+    </application-param>
+
+    <prefer-application-packages>
+        <!--
+        // http://www.coderanch.com/t/68259/BEA-Weblogic/SAAJ-version-conflict-weblogic
+        // https://jira.springframework.org/browse/SWS-160
+        // http://blog.springframework.com/arjen/
+        // http://metro.1045641.n5.nabble.com/Deploying-to-Weblogic-10-3-1-td1055684.html
+        -->
+        <!--
+                <package-name>com.sun.xml.*</package-name>
+                <package-name>javax.jws.*</package-name>
+                <package-name>javax.xml.bind.*</package-name>
+                <package-name>javax.xml.soap.*</package-name>
+                <package-name>javax.xml.stream.*</package-name>
+                <package-name>javax.xml.ws.*</package-name>
+                <package-name>javax.xml.activation.*</package-name>
+                <package-name>javax.xml.annotation.*</package-name>
+                <package-name>javax.xml.mail.*</package-name>
+                <package-name>javax.xml.security.*</package-name>
+                <package-name>javax.xml.registry.*</package-name>
+                <package-name>javax.xml.rpc.*</package-name>
+                <package-name>javax.xml.crypto.*</package-name>
+                <package-name>javanet.staxutils.*</package-name>
+                <package-name>jp.gr.xml.*</package-name>
+                <package-name>org.codehaus.stax2.*</package-name>
+                <package-name>org.glassfish.gmbal.*</package-name>
+                <package-name>org.iso_relax.*</package-name>
+                <package-name>org.jcp.xml.dsig.*</package-name>
+                <package-name>org.jvnet.*</package-name>
+                <package-name>org.relaxng.*</package-name>
+        -->
+
+        <!--
+        <package-name>com.sun.xml.ws.*</package-name>
+        <package-name>javax.jws.*</package-name>
+        <package-name>javax.xml.ws.*</package-name>
+        -->
+        <!--
+        For WebLogic 12c, it is necessary to prefer the Google library from ECAS.
+        See https://webgate.ec.europa.eu/CITnet/jira/browse/ECAS-1442
+        and https://webgate.ec.europa.eu/CITnet/jforum/posts/list/1341.page#4721 -->
+        <package-name>com.google.*</package-name>
+        <!--<package-name>com.ctc.wstx.*</package-name>-->
+        <!--<package-name>com.sun.istack.*</package-name>-->
+        <!--<package-name>com.sun.org.apache.xml.*</package-name>-->
+        <!--<package-name>com.sun.wsit.*</package-name>-->
+        <!--<package-name>com.sun.xml.*</package-name>-->
+        <!--<package-name>javax.jws.*</package-name>-->
+        <!--<package-name>javax.xml.bind.*</package-name>-->
+        <!--<package-name>javax.xml.soap.*</package-name>-->
+        <!--<package-name>javax.xml.stream.*</package-name>-->
+        <!--<package-name>javax.xml.ws.*</package-name>-->
+        <!--<package-name>javax.xml.activation.*</package-name>-->
+        <!--<package-name>javax.xml.annotation.*</package-name>-->
+        <!--<package-name>javax.xml.mail.*</package-name>-->
+        <!--<package-name>javax.xml.security.*</package-name>-->
+        <!--<package-name>javax.xml.registry.*</package-name>-->
+        <!--<package-name>javax.xml.rpc.*</package-name>-->
+        <!-- Used by ecas-demo: org.apache.jcp.xml.dsig.internal.dom.DOMXMLSignatureFactory cannot be cast to javax.xml.crypto.dsig.XMLSignatureFactory -->
+        <!--<package-name>javax.xml.crypto.*</package-name>-->
+        <!--<package-name>javanet.staxutils.*</package-name>-->
+        <!--<package-name>jp.gr.xml.*</package-name>-->
+        <!--<package-name>org.codehaus.stax2.*</package-name>-->
+        <!--<package-name>org.glassfish.*</package-name>-->
+        <!--<package-name>org.iso_relax.*</package-name>-->
+        <!--<package-name>org.jcp.xml.dsig.*</package-name>-->
+        <!--<package-name>org.jvnet.*</package-name>-->
+        <!--<package-name>org.kohsuke.*</package-name>-->
+        <!--<package-name>org.relaxng.*</package-name>-->
+
+        <!-- DraconianValidationErrorHandler is not recognizable :-( -->
+        <!--<package-name>com.sun.xml.ws.*</package-name>-->
+        <!--<package-name>javax.xml.ws.*</package-name>-->
+
+        <!--
+        <package-name>org.apache.jcp.xml.dsig.*</package-name>
+
+        <package-name>org.apache.commons.logging.*</package-name>
+        <package-name>org.apache.derby.*</package-name>
+        <package-name>org.apache.env.*</package-name>
+        <package-name>org.apache.log4j.*</package-name>
+        <package-name>org.apache.regexp.*</package-name>
+        <package-name>org.apache.xalan.*</package-name>
+        <package-name>org.apache.xerces.*</package-name>
+        <package-name>org.apache.xml.*</package-name>
+        <package-name>org.apache.xmlcommons.*</package-name>
+        <package-name>org.apache.xpath.*</package-name>
+
+        <package-name>org.joda.time.*</package-name>
+
+        <package-name>org.opensaml.*</package-name>
+
+        <package-name>org.slf4j.*</package-name>
+        -->
+        <package-name>org.apache.commons.lang</package-name>
+
+        <!-- use our Axis 1.4 -->
+        <!--
+        <package-name>org.apache.axis.*</package-name>
+        <package-name>org.apache.commons.discovery.*</package-name>
+        <package-name>com.ibm.wsdl.*</package-name>
+        <package-name>javax.wsdl.*</package-name>
+        -->
+
+        <!-- Metro 2.3: https://metro.java.net/guide/ch02.html#weblogic-10 -->
+        <!--
+        <package-name>com.ctc.*</package-name>
+        <package-name>com.sun.xml.*</package-name>
+        <package-name>com.sun.istack.*</package-name>
+        <package-name>com.sun.msv.datatype.*</package-name>
+        <package-name>com.sun.msv.driver.*</package-name>
+        <package-name>com.sun.msv.grammar.*</package-name>
+        <package-name>com.sun.msv.reader.*</package-name>
+        <package-name>com.sun.msv.relaxns.*</package-name>
+        <package-name>com.sun.msv.scanner.*</package-name>
+        <package-name>com.sun.msv.util.*</package-name>
+        <package-name>com.sun.msv.verifier.*</package-name>
+        <package-name>com.sun.msv.writer.*</package-name>
+        <package-name>com.sun.org.apache.xml.internal.*</package-name>
+        <package-name>com.sun.wsit.*</package-name>
+        <package-name>javax.jws.*</package-name>
+        <package-name>javax.xml.bind.*</package-name>
+        <package-name>javax.xml.soap.*</package-name>
+        <package-name>javax.xml.ws.*</package-name>
+        <package-name>javax.xml.activation.*</package-name>
+        <package-name>javax.xml.annotation.*</package-name>
+        <package-name>javax.xml.mail.*</package-name>
+        <package-name>javax.xml.security.*</package-name>
+        <package-name>javax.xml.registry.*</package-name>
+        <package-name>javax.xml.rpc.*</package-name>
+        <package-name>javanet.staxutils.*</package-name>
+        <package-name>jp.gr.xml.*</package-name>
+        <package-name>org.codehaus.stax2.*</package-name>
+        <package-name>org.glassfish.gmbal.*</package-name>
+        <package-name>org.iso_relax.*</package-name>
+        <package-name>org.jcp.xml.dsig.*</package-name>
+        <package-name>org.jvnet.*</package-name>
+        <package-name>org.relaxng.*</package-name>
+        -->
+
+        <!--
+        The following cannot be filtered because of
+        java.lang.ClassCastException: org.apache.jcp.xml.dsig.internal.dom.DOMXMLSignatureFactory cannot be cast to javax.xml.crypto.dsig.XMLSignatureFactory
+        -->
+        <!--<package-name>javax.xml.crypto.*</package-name>-->
+
+        <!--
+        The following cannot be filtered because of
+        java.util.ServiceConfigurationError: javax.xml.stream.XMLInputFactory: Provider com.ctc.wstx.stax.WstxInputFactory not a subtype
+        -->
+        <!--<package-name>javax.xml.stream.*</package-name>-->
+
+        <!--
+        Also for Metro 2.3: to stop problems with web services:
+
+            <User defined listener com.sun.xml.ws.transport.http.servlet.WSServletContextListener failed:
+            com.sun.xml.ws.transport.http.servlet.WSServletException: WSSERVLET11: failed to parse runtime descriptor: java.lang.ArrayStoreException: com.oracle.webservices.api.EnvelopeStyleFeature
+            Caused By: java.lang.ArrayStoreException: com.oracle.webservices.api.EnvelopeStyleFeature
+        -->
+        <package-name>com.oracle.webservices.api.*</package-name>
+
+        <!-- JAI -->
+        <package-name>javax.media.jai.*</package-name>
+        <package-name>jj2000.j2k.*</package-name>
+        <package-name>com.sun.media.imageio.*</package-name>
+        <package-name>com.sun.media.imageioimpl.*</package-name>
+        <package-name>com.sun.media.jai.*</package-name>
+
+        <!-- JCaptcha -->
+        <package-name>com.octo.*</package-name>
+        <package-name>com.jhlabs.*</package-name>
+
+        <!-- YUI Compressor -->
+        <!--
+        <package-name>com.yahoo.platform.yui.compressor.*</package-name>
+        <package-name>jargs.gnu.*</package-name>
+        <package-name>org.mozilla.classfile.*</package-name>
+        <package-name>org.mozilla.javascript.*</package-name>
+        -->
+
+        <!-- Jersey -->
+        <!--
+        <package-name>com.fasterxml.jackson.*</package-name>
+        <package-name>com.sun.jersey.*</package-name>
+        <package-name>com.sun.research.ws.wadl.*</package-name>
+        <package-name>com.sun.entreprise.module.*</package-name>
+        <package-name>javax.ws.rs.*</package-name>
+        <package-name>jersey.repackaged.*</package-name>
+        <package-name>org.glassfish.jersey.*</package-name>
+        <package-name>org.glassfish.hk2.*</package-name>
+        <package-name>org.jvnet.*</package-name>
+        -->
+
+        <!-- scribe -->
+        <!--
+        <package-name>org.asynchttpclient.*</package-name>
+        <package-name>io.netty.*</package-name>
+        <package-name>com.github.scribejava.*</package-name>
+            -->
+    </prefer-application-packages>
+
+    <prefer-application-resources>
+
+        <!-- Metro 2.3: https://metro.java.net/guide/ch02.html#weblogic-10 -->
+        <resource-name>META-INF/services/javax.xml.ws.*</resource-name>
+        <resource-name>META-INF/services/com.sun.xml.ws.*</resource-name>
+        <resource-name>META-INF/services/com.sun.tools.ws.*</resource-name>
+
+        <!-- Jersey -->
+        <resource-name>META-INF/services/com.fasterxml.jackson.*</resource-name>
+        <resource-name>META-INF/services/javax.ws.rs.*</resource-name>
+        <resource-name>META-INF/services/org.glassfish.jersey.*</resource-name>
+        <resource-name>META-INF/services/org.glassfish.hk2.*</resource-name>
+
+        <!-- For OpenSAML (XMLTooling) -->
+        <!-- See org.opensaml.DefaultBootstrap -->
+        <resource-name>default-config.xml</resource-name>
+        <resource-name>schema-config.xml</resource-name>
+        <resource-name>signature-config.xml</resource-name>
+        <resource-name>signature-validation-config.xml</resource-name>
+        <resource-name>encryption-config.xml</resource-name>
+        <resource-name>encryption-validation-config.xml</resource-name>
+        <resource-name>soap11-config.xml</resource-name>
+        <resource-name>wsfed11-protocol-config.xml</resource-name>
+        <resource-name>saml1-assertion-config.xml</resource-name>
+        <resource-name>saml1-protocol-config.xml</resource-name>
+        <resource-name>saml1-core-validation-config.xml</resource-name>
+        <resource-name>saml2-assertion-config.xml</resource-name>
+        <resource-name>saml2-protocol-config.xml</resource-name>
+        <resource-name>saml2-core-validation-config.xml</resource-name>
+        <resource-name>saml1-metadata-config.xml</resource-name>
+        <resource-name>saml2-metadata-config.xml</resource-name>
+        <resource-name>saml2-metadata-validation-config.xml</resource-name>
+        <resource-name>saml2-metadata-attr-config.xml</resource-name>
+        <resource-name>saml2-metadata-idp-discovery-config.xml</resource-name>
+        <resource-name>saml2-metadata-ui-config.xml</resource-name>
+        <resource-name>saml2-protocol-aslo-config.xml</resource-name>
+        <resource-name>saml2-protocol-thirdparty-config.xml</resource-name>
+        <resource-name>saml2-metadata-query-config.xml</resource-name>
+        <resource-name>saml2-assertion-delegation-restriction-config.xml</resource-name>
+        <resource-name>saml2-ecp-config.xml</resource-name>
+        <resource-name>saml2-channel-binding-config.xml</resource-name>
+        <resource-name>saml-ec-gss-config.xml</resource-name>
+        <resource-name>xacml10-saml2-profile-config.xml</resource-name>
+        <resource-name>xacml11-saml2-profile-config.xml</resource-name>
+        <resource-name>xacml20-context-config.xml</resource-name>
+        <resource-name>xacml20-policy-config.xml</resource-name>
+        <resource-name>xacml2-saml2-profile-config.xml</resource-name>
+        <resource-name>xacml3-saml2-profile-config.xml</resource-name>
+        <resource-name>wsaddressing-config.xml</resource-name>
+        <resource-name>wssecurity-config.xml</resource-name>
+        <resource-name>wstrust-config.xml</resource-name>
+        <resource-name>wspolicy-config.xml</resource-name>
+        <resource-name>schema/*</resource-name>
+
+        <!-- scribe -->
+        <resource-name>ahc-default.properties</resource-name>
+        <resource-name>ahc-mime.types</resource-name>
+        <resource-name>ahc-version.properties</resource-name>
+        <resource-name>META-INF/services/com.github.scribejava.*</resource-name>
+
+    </prefer-application-resources>
+
+</weblogic-application>
